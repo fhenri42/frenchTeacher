@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
 import Input from '../components/input'
+import Play from '../components/play'
 
 import './style.scss'
 
@@ -16,10 +17,10 @@ class App extends Component {
 
 
   render () {
-    console.log("Hello");
     return (
       <div className='App'>
-      <Input/>
+      <Play />
+      <Input />
       </div>
     )
   }
