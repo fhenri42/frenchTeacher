@@ -47,12 +47,13 @@ class Input extends Component {
       let meTextSplit = meText.split(' ')
       shouldBeSplit.forEach((wordTrue, x) => {
 
-        if (Checker.checkConjugaison(wordTrue, meTextSplit[x])) console.log('checkConjugaison');
-        if (Checker.checkHomophonie(wordTrue, meTextSplit[x])) console.log('checkHomophonie');
-        if (Checker.checkAccord(wordTrue, meTextSplit[x])) console.log('checkAccord');
-        if (Checker.checkPonctuation(wordTrue, meTextSplit[x])) console.log('checkPonctuation');
+        if (Checker.checkConjugaison(wordTrue, meTextSplit[x])) ;//console.log('checkConjugaison');
+        if (Checker.checkHomophonie(wordTrue, meTextSplit[x])) { this.state.frenchErrors[2].nb = this.state.frenchErrors[2].nb + 1 }//console.log('checkHomophonie');
+        if (Checker.checkAccord(wordTrue, meTextSplit[x])) { this.state.frenchErrors[3].nb = this.state.frenchErrors[3].nb + 1 }
+        if (Checker.checkPonctuation(wordTrue, meTextSplit[x])) ;//console.log('checkPonctuation');
         //if (lexical)
       })
+      this.setState({ showResult: true })
       console.log(meTextSplit);
       console.log(shouldBeSplit);
     }
@@ -61,7 +62,7 @@ class Input extends Component {
 
 
   render () {
-    const { showResult }  = this.state
+    const { showResult, frenchErrors }  = this.state
     return (
       <div className="inputPart">
       <textarea
@@ -75,7 +76,14 @@ class Input extends Component {
       </button>
       {showResult  &&(
         <div>
-        {"this is the resulte"}
+        {"Resulta: "}
+        {frenchErrors.map(res => {
+          return (
+          <div>
+        {res.error + " : " + res.nb}
+          </div>
+        )
+        })}
         </div>
       )}
       </div>

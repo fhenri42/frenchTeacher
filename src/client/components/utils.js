@@ -1,12 +1,28 @@
 
 const homophoneList = [
-  {a : ['à','a','as','ha','ah'] }, {en : ['an','en']}, {bientot: ['bientôt','bien tôt']}, {ce: ['ce', 'se']},
-  {ces: ['ces' ,'ses','c\’est','s\’est', 'sais','sait']}, {dans: ['dans','d\'en', 'dent']}, {davantage: ['davatage','d\'avantage']},
-  {don: ['don','donc','dont']}, {la: ['la', 'là' , 'l\’a', 'l\’as', 'las']}, {mon: ['mon','m\'ont', 'mont']}, {ni: ['ni','n\'y','nie','nies','nient','nid']},
-  {notre: ['notre','nôtre']}, {on: ['on','ont','on n\'']}, {ou : ['ou','où','août','hou','houe','houx']}, {peutEtre: ['peut être', 'pêut-être']}, {plutot: ['plutôt','plus tôt']},
-  { pris: ['pris''prit','prie','prie','prix']}, {quand: ['quand','quant' ,'qu\’en', 'camp','khan']},{ sa: ['sa','ça','çà' ]}, {sans: ['sans', 's\’en', 'c\’en' 'sens', 'sent', 'sang','cent']},
-  {son: ['son', 'sont']}, {ton: ['ton','t\’ont', 'thon','taon']}
-  {tout: ['tout','tous','toux']}, {votre: ['votre','vôtre']}
+  ['à','a','as','ha','ah'] ,
+  ['an','en'],
+  ['bientôt','bien tôt'],
+  ['ce', 'se'],
+  ['ces' ,'ses','c\’est','s\’est', 'sais','sait'],
+  ['dans','d\'en', 'dent'],
+  ['davatage','d\'avantage'],
+  ['don','donc','dont'],
+  ['la', 'là' , 'l\’a', 'l\’as', 'las'],
+  ['mon','m\'ont', 'mont'],
+  ['ni','n\'y','nie','nies','nient','nid'],
+  ['notre','nôtre'], ['on','ont','on n\''],
+  ['ou','où','août','hou','houe','houx'],
+  ['peut être', 'pêut-être'],
+  ['plutôt','plus tôt'],
+  ['pris','prit','prie','prie','prix'],
+  ['quand','quant' ,'qu\’en', 'camp','khan'],
+  ['sa','ça','çà' ],
+  ['sans', 's\’en', 'c\'en' ,'sens', 'sent', 'sang','cent'],
+  ['son', 'sont'],
+  ['ton','t\’ont', 'thon','taon'],
+  ['tout','tous','toux'],
+  ['votre','vôtre']
 ]
 export default class Checker {
 
@@ -15,11 +31,29 @@ static checkConjugaison  (wordTrue, wordFalse) {
 }
 
 static checkHomophonie  (wordTrue, wordFalse) {
-  return true
-}
+  let ret = false
+  homophoneList.forEach(list => {
+    list.forEach(each => {
+      if (wordTrue === each) {
+        list.forEach(each2 => {
+          if (wordFalse === each2 && each2 != each ) {
+            ret = true
+          }
+        })
+      }
+    })
+  })
+   return ret
+ }
 
-static checkAccord  (wordTrue, wordFalse) {
-  return true
+static checkAccord (wordTrue, wordFalse) {
+  let ret = false
+  const wordTrueSplit = wordTrue.replace(/[.,:?!]/g, '').split('')
+  const wordFalseSplit = wordFalse.replace(/[.,:?!]/g, '').split('')
+  if (wordTrueSplit[wordTrueSplit.length - 1] === 's' && wordFalseSplit[wordFalseSplit.length - 1] != 's') {
+    ret = true
+  }
+  return ret
 }
 
 static checkPonctuation  (wordTrue, wordFalse) {
